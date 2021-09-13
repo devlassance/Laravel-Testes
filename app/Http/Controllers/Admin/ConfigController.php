@@ -73,7 +73,7 @@ class ConfigController extends Controller
         //Buscando o dado do input e definindo um dado padrão como 'visitante' 
         $nome = $request->input('nome', 'Visitante');
 
-        echo "meu nome é ".$nome."<br>";
+        echo "meu nome é ".$nome."<br><br>";
 
         //se o form estivesse dentro de uma pasta dentro da view, eu puxaria ele da seguinte form (pasta.form)
         return view('admin.form', $data);
