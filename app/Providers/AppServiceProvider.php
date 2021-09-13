@@ -4,6 +4,12 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+//ferramenta para criação de valores globais
+use Illuminate\Support\Facades\View;
+
+//Usando components 
+use Illuminate\Support\Facades\Blade;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //criando um valor global
+        View::share('version', '1.0');
+
+        //Informando pasta e nome do components
+        Blade::component('components.alert', 'alert');
     }
 }

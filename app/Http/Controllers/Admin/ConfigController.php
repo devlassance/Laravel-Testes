@@ -28,7 +28,8 @@ class ConfigController extends Controller
     public function info(){
         $link3 = route('config');
         $data = [
-            'config' => $link3
+            'config' => $link3,
+            'idade' => 19
         ];
 
         return view('admin.info', $data);
@@ -73,7 +74,7 @@ class ConfigController extends Controller
         //Buscando o dado do input e definindo um dado padrão como 'visitante' 
         $nome = $request->input('nome', 'Visitante');
 
-        echo "meu nome é ".$nome."<br><br>";
+        echo "meu nome é ".$nome."<br>";
 
         //se o form estivesse dentro de uma pasta dentro da view, eu puxaria ele da seguinte form (pasta.form)
         return view('admin.form', $data);

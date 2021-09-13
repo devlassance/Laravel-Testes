@@ -1,3 +1,9 @@
+@extends('layouts.admin')
+
+@section('title', 'Configurações')
+
+@section('content')
+
 <h1>Formulário</h1>
 <br>
 
@@ -17,3 +23,5 @@
 </form>
 <br>
 <a href="{{$config}}">Voltar</a>
+
+@endsection
