@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TarefasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,21 @@ Route::get('/user/{id}', function($id){
     echo "Mostrando usuário de ID: ".$id;
 })->where('id', '[0-9]+'); //Usando Regex nas rotas
 
+//Definindo grupo de rotas Tarefas
+Route::prefix('/tarefas')->group(function(){
+
+    Route::get('/', [TarefasController::class, 'list']);
+
+    Route::get('add', [TarefasController::class, 'add']); //Tela de adição
+    Route::post('add', [TarefasController::class, 'addAction']); //Ação de adição
+
+    Route::get('edit/{id}', [TarefasController::class, 'edit']); //Tela de edição
+    Route::post('edit/{id}', [TarefasController::class, 'editAction']); //Ação de edição
+
+    Route::get('delete/{id}', [TarefasController::class, 'del']); //Ação de deletar
+
+    Route::get('marcar/{id}', [TarefasController::class, 'done']); //Marcar resolvido/não resolvido
+});
 
 //Definindo um grupo de rotas
 Route::prefix('/config')->group(function(){

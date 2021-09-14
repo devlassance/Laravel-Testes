@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
+    {                                                                      
         //criando um valor global
         View::share('version', '1.0');
 
