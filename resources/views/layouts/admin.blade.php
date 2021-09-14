@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <h1>Cabeçalho</h1>
+        <a href="{{route('home')}}" style="color:#000;"><h1>Início</h1></a>
     </header>
     <hr>
     <section>
