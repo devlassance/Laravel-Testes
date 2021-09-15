@@ -5,9 +5,13 @@
 @section('content')
 <h2>Editar Tarefa ({{$data->titulo}})</h2>
 
-@if(session('warning'))
-    <x-alert>{{session('warning')}}</x-alert>
-    <br>
+@if($errors->any())
+<x-alert>
+    @foreach($errors->all() as $error) 
+        {{$error}} <br>
+    @endforeach
+</x-alert>
+<br>
 @endif
 
 <form method="POST">

@@ -28,17 +28,16 @@ class TarefasController extends Controller
 
     public function addAction(Request $request){
 
-        if($request->filled('title')){
+            //buscar dados de validação na documentação do laravel
+            $request->validate([
+                'title' => ['required', 'string']
+            ]);
+
             $title = $request->input('title');
 
             DB::insert("INSERT INTO tarefas (titulo) VALUES (:title)", ['title' => $title]);
 
             return redirect()->route('tarefas.list');
-        }else{
-            //Criando uma mensagem flash, que pode ser puxada na página usando o parametro session()
-            //Diferente do $_SESSION, depois que essa mensagem é lida, ela some da sessão
-            return redirect()->route('tarefas.add')->with('warning', 'Você não preenchou o titulo!');
-        }
         
     }
 
@@ -57,20 +56,22 @@ class TarefasController extends Controller
     }
 
     public function editAction(Request $request, $id){
-        if($request->filled('title')){
+
+        //buscar dados de validação na documentação do laravel
+            $request->validate([
+                'title' => ['required', 'string']
+            ]);
+            
             $data = DB::select('SELECT * FROM tarefas WHERE id = :id', [
                 'id' => $id
             ]);
-            if(count($data) > 0){
-                DB::update("UPDATE tarefas SET titulo = :titulo WHERE id = :id", [
-                    'titulo' => $request->input('title'),
-                    'id' => $id
-                ]);
-            }
+
+            DB::update("UPDATE tarefas SET titulo = :titulo WHERE id = :id", [
+                'titulo' => $request->input('title'),
+                'id' => $id
+            ]);
+
             return redirect()->route('tarefas.list');
-        }else{
-            return redirect()->route('tarefas.edit', ['id' => $id])->with('warning', 'Você não preenchou o titulo!');
-        }
     }
 
     public function del($id){
