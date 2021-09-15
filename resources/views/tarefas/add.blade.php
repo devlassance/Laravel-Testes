@@ -17,4 +17,8 @@
     <input type="text" name="title"><br>
     <input type="submit" value="Adicionar">
 </form>
+
+<hr>
+
+<a href="{{route('tarefas.list')}}"> Voltar < </a>
 @endsection
