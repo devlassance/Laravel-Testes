@@ -19,7 +19,7 @@ class HomeController extends Controller
         //dessa forma você está rodando a query no total 
         //você também pode fazer multiplos where, dessa forma where('conditions')->where('second conditions')
         //ou usar o orWhere para trazer resultados || 
-        $list = Tarefa::where('resolvido', 0)->get();
+        #$list = Tarefa::where('resolvido', 0)->get();
 
         //Dessa forma você está pegando o primeiro resultado
         #$list = Tarefa::where('resolvido', 0)->first();
@@ -61,6 +61,6 @@ class HomeController extends Controller
         ]);
         */
 
-        return view('index');
+        #return view('index');
     }
 }
