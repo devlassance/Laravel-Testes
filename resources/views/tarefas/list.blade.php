@@ -4,7 +4,7 @@
 
 @section('content')
 
-<h2>Listagem</h2>
+<h2>Listagem</h2> 
 
 <a href="{{route('tarefas.add')}}">Adicionar nova tarefa</a>
 

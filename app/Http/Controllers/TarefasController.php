@@ -7,13 +7,12 @@ use Illuminate\Http\Request;
 //Puxando banco de dados
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Tarefa;
+
 class TarefasController extends Controller
 {
     public function list(){
-
-
-
-        $list = DB::select("SELECT * FROM tarefas");
+        $list = Tarefa::all();
         
         $data = [
             'list' => $list
@@ -34,20 +33,20 @@ class TarefasController extends Controller
             ]);
 
             $title = $request->input('title');
-
-            DB::insert("INSERT INTO tarefas (titulo) VALUES (:title)", ['title' => $title]);
+            $t = new Tarefa;
+            $t->titulo = $title;
+            $t->save();
 
             return redirect()->route('tarefas.list');
         
     }
 
     public function edit($id){
-        $data = DB::select('SELECT * FROM tarefas WHERE id = :id', [
-            'id' => $id
-        ]);
-        if(count($data) > 0){
+
+        $item = Tarefa::find($id);
+        if($item){
             return view('tarefas.edit', [
-                'data' => $data[0]
+                'data' => $item
             ]);
         }else{
             return redirect()->route('tarefas.list');
@@ -61,31 +60,25 @@ class TarefasController extends Controller
             $request->validate([
                 'title' => ['required', 'string']
             ]);
-            
-            $data = DB::select('SELECT * FROM tarefas WHERE id = :id', [
-                'id' => $id
-            ]);
 
-            DB::update("UPDATE tarefas SET titulo = :titulo WHERE id = :id", [
-                'titulo' => $request->input('title'),
-                'id' => $id
-            ]);
+            Tarefa::find($id)->update(['titulo' => $request->input('title')]);
 
             return redirect()->route('tarefas.list');
     }
 
     public function del($id){
-        DB::delete("DELETE FROM tarefas WHERE id = :id", [
-            'id' => $id
-        ]);
 
+        Tarefa::find($id)->delete();
         return redirect()->route('tarefas.list');
     }
 
     public function done($id){
 
-        DB::update('UPDATE tarefas SET resolvido = 1 - resolvido WHERE id = :id', ['id' => $id]);
-
+        $t = Tarefa::find($id);
+        if($t){
+            $t->resolvido = 1 - $t->resolvido;
+            $t->save();
+        }
         return redirect()->route('tarefas.list');
     }
 }

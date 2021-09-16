@@ -16,7 +16,6 @@
 
 <form method="POST">
     @csrf
-
     Titulo: <br>    
     <input type="text" name="title" value="{{$data->titulo}}"><br>
     <input type="submit" value="Editar">

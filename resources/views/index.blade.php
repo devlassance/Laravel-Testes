@@ -2,7 +2,7 @@
 <hr>
 <h2>Projetos feitos até o momento</h2>
 <br>
-<ul>
+<ul> 
     <li><a href="{{route('config')}}">Config</a></li>
     <li><a href="{{route('tarefas.list')}}">Tarefas</a></li>
 </ul>
