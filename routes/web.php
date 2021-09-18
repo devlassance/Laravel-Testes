@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TarefasController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ use App\Http\Controllers\TarefasController;
 
 //Usando controller para gerenciamento de rotas
 Route::get('/',  [HomeController::class, 'index'])->name('home');
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate']);
 
 //Rotas de redirecionamento
 #Route::redirect('/', 'teste');
@@ -37,6 +41,12 @@ Route::get('/user/{name}', function($name){
 Route::get('/user/{id}', function($id){
     echo "Mostrando usuário de ID: ".$id;
 })->where('id', '[0-9]+'); //Usando Regex nas rotas
+
+
+//Criando um grupo de rotas CRUD usando o resource controller
+//Todas as classes criadas dentro do Controller Todo estão com suas respectivas rotas criadas com apenas essa linha
+Route::resource('todo', 'TodoController');
+
 
 //Definindo grupo de rotas Tarefas
 Route::prefix('/tarefas')->group(function(){
@@ -59,7 +69,9 @@ Route::prefix('/config')->group(function(){
 
     //Usando controller para ter melhor gerenciamento de rotas
 
-    Route::get('/',  [ConfigController::class, 'index'])->name('config');
+    //barrando o acesso a rota, para usuários sem autenticação
+    //caso não tenha autenticação o usuário é direcionado para uma rota chamada login
+    Route::get('/',  [ConfigController::class, 'index'])->name('config')->middleware('auth');
 
     Route::get('info', [ConfigController::class, 'permissoes'])->name("permissoes");//Definindo nomes para as rotas
 
@@ -78,3 +90,7 @@ Route::fallback(function(){
 });
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -8,6 +8,7 @@
 
     <h1>Configurações gerais</h1>
     <h3>Versão: {{$version}}</h3>
+    <h2>Área Restrita</h2>
 
     <ul style="text-decoration:none">
         <li><a href="{{$link1}}">Permissoes</a> </li>

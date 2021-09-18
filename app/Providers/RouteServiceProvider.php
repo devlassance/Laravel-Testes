@@ -19,6 +19,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const HOME = '/home';
 
+    //adicionando a constante de rota config
+    public const CONFIG = '/config';
+
     /**
      * The controller namespace for the application.
      *
