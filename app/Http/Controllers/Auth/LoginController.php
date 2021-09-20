@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -20,7 +20,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    #use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
@@ -42,10 +42,19 @@ class LoginController extends Controller
     }
 
     public function index(){
-        return view('auth.login');
+        echo "Estou aqui!<br>";
+        #return view('auth.login');
     }
 
     public function authenticate(Request $request){
+        //pegandos apenas os dois campos essenciais usando only
+        $creds = $request->only(['email', 'password']);
 
+        //fazendo a tentativa de login
+        if(Auth::attempt($creds)){
+            return redirect()->route('config');
+        }else{
+            return redirect()->route('home')->with('warning', 'Email e/ou senha invalidos');
+        }
     }
 }

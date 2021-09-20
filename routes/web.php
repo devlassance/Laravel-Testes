@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TarefasController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\Login2Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,8 @@ use App\Http\Controllers\Auth\LoginController;
 //Usando controller para gerenciamento de rotas
 Route::get('/',  [HomeController::class, 'index'])->name('home');
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('login', [Login2Controller::class, 'index'])->name('login');
+Route::post('login', [Login2Controller::class, 'authenticate']);
 
 //Rotas de redirecionamento
 #Route::redirect('/', 'teste');

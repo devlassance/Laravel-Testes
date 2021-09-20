@@ -2,7 +2,11 @@
 
 @section('title', 'Login')
 
-@section('content')
+@section('content') 
+
+@if(session('warning'))
+<x-alert>{{session('warning')}}</x-alert>
+@endif
 
 <form method="POST">
     @csrf 
