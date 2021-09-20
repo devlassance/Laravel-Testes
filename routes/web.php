@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TarefasController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\Login2Controller;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +21,11 @@ use App\Http\Controllers\Auth\Login2Controller;
 //Usando controller para gerenciamento de rotas
 Route::get('/',  [HomeController::class, 'index'])->name('home');
 
-Route::get('login', [Login2Controller::class, 'index'])->name('login');
-Route::post('login', [Login2Controller::class, 'authenticate']);
+Route::post('/authlogin', [LoginController::class, 'authenticate'])->name("authlogin");
+
+Route::post('/authregister', [RegisterController::class, 'register'])->name("authregister");
+
+Route::get('/logout', [LoginController::class, 'logout'])->name("logout");
 
 //Rotas de redirecionamento
 #Route::redirect('/', 'teste');
@@ -74,14 +77,14 @@ Route::prefix('/config')->group(function(){
     //caso não tenha autenticação o usuário é direcionado para uma rota chamada login
     Route::get('/',  [ConfigController::class, 'index'])->name('config')->middleware('auth');
 
-    Route::get('info', [ConfigController::class, 'permissoes'])->name("permissoes");//Definindo nomes para as rotas
+    Route::get('info', [ConfigController::class, 'permissoes'])->name("permissoes")->middleware('auth');//Definindo nomes para as rotas
 
-    Route::get('permissoes', [ConfigController::class, 'info'])->name('info'); //Definindo nomes para as rotas
+    Route::get('permissoes', [ConfigController::class, 'info'])->name('info')->middleware('auth'); //Definindo nomes para as rotas
 
 
     //definindo rotas de requisição post e rotas de requisição get
-    Route::get('form', [ConfigController::class, 'form'])->name('form');
-    Route::post('form', [ConfigController::class, 'form'])->name('form');
+    Route::get('form', [ConfigController::class, 'form'])->name('form')->middleware('auth');
+    Route::post('form', [ConfigController::class, 'form'])->name('form')->middleware('auth');
 
 });
 

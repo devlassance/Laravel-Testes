@@ -15,5 +15,6 @@
         <li><a href="{{$link2}}">Info</a></li>
         <li><a href="{{$link3}}">Formulário</a></li>
     </ul>
-
+    <br>
+    <a href="{{route('logout')}}">Sair</a>
 @endsection

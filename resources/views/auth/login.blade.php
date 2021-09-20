@@ -7,8 +7,9 @@
 @if(session('warning'))
 <x-alert>{{session('warning')}}</x-alert>
 @endif
-
-<form method="POST">
+Não tem uma conta? <a href="{{route('register')}}">Cadastre-se</a>
+<br>
+<form method="POST" action="{{route("authlogin")}}">
     @csrf 
 
     Email: <br>
