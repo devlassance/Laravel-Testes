@@ -5,11 +5,21 @@ namespace App\Http\Controllers\Admin;
 //Puxando o arquivo controller
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ConfigController extends Controller
 {
 
+    public function __construct(){
+        $this->middleware("auth");
+    }
+
     public function index(Request $request){
+
+        $user = Auth::user();
+
+        $nome = $user->name;
 
         //Setando variaveis com rotas nomeadas
         $link1 = route("permissoes");
@@ -19,7 +29,8 @@ class ConfigController extends Controller
         $data = [
             'link1' => $link1,
             'link2' => $link2,
-            'link3' => $link3
+            'link3' => $link3,
+            'user'  => $nome
         ];
 
         return view('admin.config', $data);
@@ -60,7 +71,8 @@ class ConfigController extends Controller
 
         $link = route('config');
         $data = [
-            'config' => $link
+            'config' => $link,
+            'showform' => Gate::allows('see-form') //verificador se o usuário possui aquele gate específico
         ];
 
 

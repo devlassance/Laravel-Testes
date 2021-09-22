@@ -75,16 +75,16 @@ Route::prefix('/config')->group(function(){
 
     //barrando o acesso a rota, para usuários sem autenticação
     //caso não tenha autenticação o usuário é direcionado para uma rota chamada login
-    Route::get('/',  [ConfigController::class, 'index'])->name('config')->middleware('auth');
+    Route::get('/',  [ConfigController::class, 'index'])->name('config');
 
-    Route::get('info', [ConfigController::class, 'permissoes'])->name("permissoes")->middleware('auth');//Definindo nomes para as rotas
+    Route::get('info', [ConfigController::class, 'permissoes'])->name("permissoes");//Definindo nomes para as rotas
 
-    Route::get('permissoes', [ConfigController::class, 'info'])->name('info')->middleware('auth'); //Definindo nomes para as rotas
+    Route::get('permissoes', [ConfigController::class, 'info'])->name('info'); //Definindo nomes para as rotas
 
 
     //definindo rotas de requisição post e rotas de requisição get
-    Route::get('form', [ConfigController::class, 'form'])->name('form')->middleware('auth');
-    Route::post('form', [ConfigController::class, 'form'])->name('form')->middleware('auth');
+    Route::get('form', [ConfigController::class, 'form'])->name('form');
+    Route::post('form', [ConfigController::class, 'form'])->name('form');
 
 });
 

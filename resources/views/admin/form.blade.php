@@ -7,6 +7,7 @@
 <h1>Formulário</h1>
 <br>
 
+@if($showform)
 <form method="POST">
 <!-- csrf um barramento de segurança padrão do laravel -->
     @csrf
@@ -21,6 +22,8 @@
 
     <input type="submit">
 </form>
+
+@endif
 <br>
 <a href="{{$config}}">Voltar</a>
 

@@ -7,7 +7,7 @@
 @section('content')
 
     <h1>Configurações gerais</h1>
-    <h3>Versão: {{$version}}</h3>
+    <h3>Olá, {{$user}}</h3>
     <h2>Área Restrita</h2>
 
     <ul style="text-decoration:none">
