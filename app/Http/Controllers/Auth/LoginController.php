@@ -21,6 +21,8 @@ class LoginController extends Controller
     |
     */
 
+    /* Para puxar linguagens dentro do controller você usa __(nomedoarquivo.nomedamensagem)*/ 
+
     use AuthenticatesUsers;
 
     /**
@@ -37,21 +39,41 @@ class LoginController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
 
+    public function showLoginForm(Request $request){
+        //Definindo o nome da sessão (login_tries), e o valor padrão
+        $tries = $request->session()->get('login_tries', 0); 
+
+        $data = ['tries' => $tries];
+
+        return view("auth.login", $data);
+    }   
+
     public function authenticate(Request $request){
         //pegandos apenas os dois campos essenciais usando only
         $creds = $request->only(['email', 'password']);
 
-        //fazendo a tentativa de login
-        if(Auth::attempt($creds)){
-            return redirect()->route('config');
-        }else{
-            return redirect()->route('login')->with('warning', 'Email e/ou senha invalidos');
+        $tries = $request->session()->get('login_tries', 0);
+        if($tries <=3){
+            //fazendo a tentativa de login
+            if(Auth::attempt($creds)){
+                //adicionando um valor a session login_tries
+                $request->session()->put('login_tries', 0);
+                return redirect()->route('config');
+            }else{
+                //adicionando um valor a session login_tries
+                $request->session()->put('login_tries', ++$tries);
+
+                return redirect()->route('login')->with('warning', 'Email e/ou senha invalidos');
+            }
         }
+        
+        
     }
 
     public function logout(){

@@ -12,6 +12,12 @@
 </x-alert>
 @endif
 
+<!--Puxando uma mensagem da pastas de linguanges do laravel -->
+@lang('messages.teste')
+<br>
+<!--Puxando a mensagem e definindo o parametro -->
+@lang('messages.tryerror', ['x' => 3])
+
 <form method="POST" action="{{route("authregister")}}">
     @csrf 
     Nome: <br>

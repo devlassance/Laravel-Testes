@@ -16,7 +16,12 @@ Não tem uma conta? <a href="{{route('register')}}">Cadastre-se</a>
     <input type="email" name="email"><br>
     Senha: <br>
     <input type="password" name="password"><br>
-    <input type="submit" Value="Entrar">
+    @if($tries <= 3)
+        <input type="submit" Value="Entrar">
+    @else
+        Você foi bloqueado
+    @endif
 </form>
-
+<br>
+Tentativas: {{$tries}}
 @endsection
